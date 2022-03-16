@@ -4,12 +4,14 @@ function ImageGallery ({ images }) {
 	return (
 		<>
 			{images.map(image => {
+				const { download_url, author } = image;
+
 				return (
 					<img
 						className={styles.img}
-						src={`${image.download_url}`}
-						alt="image"
-						key={image.download_url}
+						src={`${download_url}`}
+						alt={`Image captured by ${author}`}
+						key={download_url}
 					/>
 				)
 			})}

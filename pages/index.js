@@ -4,13 +4,14 @@ import ImageGallery from '../components/ImageGallery/ImageGallery';
 
 import styles from '../styles/Home.module.css';
 
-function Home({ imagesList }) {
+export default function Home({ imageGallery }) {
 	const [nextImages, setNextImages] = useState();
 	const [counterPage, setCounterPage] = useState(2);
 	const [isLoadingImages, setIsLoadingImages] = useState(false);
 
 	const showNextThreeImages = async () => {
 		setIsLoadingImages(true);
+
 		const response = await fetch(`${GET_IMAGES_URL}?page=${counterPage}&limit=3`);
 		const data = await response.json();
 
@@ -23,7 +24,7 @@ function Home({ imagesList }) {
   return (
 		<>
 			<div className={styles.container}>
-				{!nextImages && <ImageGallery images={imagesList}/>}
+				{!nextImages && <ImageGallery images={imageGallery}/>}
 				{nextImages && <ImageGallery images={nextImages}/>}
 			</div>
 
@@ -46,9 +47,7 @@ export async function getStaticProps(){
 
 	return {
 		props: {
-			imagesList: await response.json()
+			imageGallery: await response.json()
 		}
 	}
 }
-
-export default Home
